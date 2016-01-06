@@ -14,4 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="40dp" />
 
+
+    <Button
+        android:id="@+id/my_scrollview"
+        android:text="自定义的ScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
 </LinearLayout>

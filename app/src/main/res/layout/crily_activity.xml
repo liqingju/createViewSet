@@ -10,5 +10,12 @@
         android:layout_height="wrap_content"
         app:color="@android:color/holo_red_dark" />
 
+    <com.example.liqingju.meituancontext.MyClicleView
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+    <com.example.liqingju.meituancontext.MyClicleView
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
 
 </LinearLayout>

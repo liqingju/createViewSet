@@ -20,6 +20,7 @@
         <activity android:name=".MainActivity" />
 
         <activity android:name=".CrilyViewActivity" />
+        <activity android:name=".myScrollViewActivity"/>
 
     </application>
 

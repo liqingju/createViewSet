@@ -10,11 +10,10 @@ import android.widget.Switch;
 /**
  * Created by liqingju on 15/12/30.
  */
-public class mianActivity extends Activity  implements View.OnClickListener{
-private Button bt_listView;
+public class mianActivity extends Activity implements View.OnClickListener {
+    private Button bt_listView;
     private Button bt_zidingyi;
-
-
+    private Button bt_myScrollView;
 
 
     @Override
@@ -25,12 +24,15 @@ private Button bt_listView;
 
 
     }
-    private void initView(){
-        bt_listView = (Button)findViewById(R.id.start_listview);
-        bt_zidingyi = (Button)findViewById(R.id.view);
+
+    private void initView() {
+        bt_listView = (Button) findViewById(R.id.start_listview);
+        bt_zidingyi = (Button) findViewById(R.id.view);
+        bt_myScrollView = (Button) findViewById(R.id.my_scrollview);
 
         bt_zidingyi.setOnClickListener(this);
         bt_listView.setOnClickListener(this);
+        bt_myScrollView.setOnClickListener(this);
 
 
     }
@@ -38,16 +40,17 @@ private Button bt_listView;
     @Override
     public void onClick(View v) {
 
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.start_listview:
-              startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 break;
 
-            case  R.id.view:
-                startActivity(new Intent(getApplicationContext(),CrilyViewActivity.class));
+            case R.id.view:
+                startActivity(new Intent(getApplicationContext(), CrilyViewActivity.class));
                 break;
 
-
+            case R.id.my_scrollview:
+                startActivity(new Intent(getApplicationContext(), myScrollViewActivity.class));
         }
 
 
