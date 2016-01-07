@@ -1,3 +1,4 @@
+
 package com.example.liqingju.meituancontext;
 
 import android.app.Activity;
@@ -14,6 +15,7 @@ public class mianActivity extends Activity implements View.OnClickListener {
     private Button bt_listView;
     private Button bt_zidingyi;
     private Button bt_myScrollView;
+    private Button bt_ScrollView;
 
 
     @Override
@@ -29,10 +31,12 @@ public class mianActivity extends Activity implements View.OnClickListener {
         bt_listView = (Button) findViewById(R.id.start_listview);
         bt_zidingyi = (Button) findViewById(R.id.view);
         bt_myScrollView = (Button) findViewById(R.id.my_scrollview);
+        bt_ScrollView = (Button) findViewById(R.id.scrollview);
 
         bt_zidingyi.setOnClickListener(this);
         bt_listView.setOnClickListener(this);
         bt_myScrollView.setOnClickListener(this);
+        bt_ScrollView.setOnClickListener(this);
 
 
     }
@@ -51,6 +55,10 @@ public class mianActivity extends Activity implements View.OnClickListener {
 
             case R.id.my_scrollview:
                 startActivity(new Intent(getApplicationContext(), myScrollViewActivity.class));
+                break;
+            case R.id.scrollview:
+                startActivity(new Intent(getApplicationContext(), ScrollViewActivity.class));
+
         }
 
 
