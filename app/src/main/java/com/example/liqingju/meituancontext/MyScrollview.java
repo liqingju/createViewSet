@@ -7,7 +7,6 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -17,13 +16,14 @@ import android.widget.ScrollView;
 /**
  * Created by liqingju on 16/1/6.
  */
-public class MyScrollview extends FrameLayout {
+public class MyScrollview extends LinearLayout {
     private OverScroller mOverScroller;
     private Context mContext;
     private VelocityTracker mVelocityTracker;
     private float Intercepty;
     private float lastTouchY;
     private ViewConfiguration mViewCondig;
+//    HorizontalScrollView
 
 
     public MyScrollview(Context context) {
@@ -81,24 +81,40 @@ public class MyScrollview extends FrameLayout {
 
                 break;
             case MotionEvent.ACTION_MOVE:
-//                Log.e("action", "22222222");
+                Log.e("action", "22222222");
                 int dey = (int) (y - lastTouchY);
-                Log.e("====    ", (getHeight() - (getHeight() - getPaddingBottom() - getPaddingTop())) + "");
-
-                Log.e("action", "   " + dey + "     " + getScrollY() + "    " + getHeight() + getChildAt(0).getHeight());
+                Log.e("action", "   "+dey+"     "+getScrollY()+"    "+getHeight());
 //                if (Math.abs(dey) > mViewCondig.getScaledTouchSlop()) {
-                if ((getScrollY() - dey) >= (getChildAt(0).getHeight() - getHeight())) {
-                    Log.e("action", "最底部");
-                    scrollTo(0, getChildAt(0).getHeight() - getHeight());
-                    break;
-                }
-                if (getScrollY() - dey <= 0) {
-//                    Log.e("action", "最顶部  ");
-                    scrollTo(0, 0);
-                    break;
-                }
-                scrollBy(0, -dey);
+                    if ((getScrollY() - dey) >= getHeight()) {
+                        Log.e("action","最底部");
+                        scrollTo(0, getHeight());
+                        break;
+                    }
+                    if (getScrollY() - dey <= 0) {
+                        Log.e("action","最顶部  ");
+                        scrollTo(0, 0);
+                        break;
+                    }
+                    scrollBy(0, -dey);
 
+//                Log.e("canOverscroll=== ", canOverscroll + "  ");
+//                if (Math.abs(dey) > mViewCondig.getScaledTouchSlop()) {
+
+//                    if (overScrollBy(0, dey, 0, getScrollY(), 0, 0, 0, mViewCondig.getScaledOverscrollDistance(), true)) {
+//                      mVelocityTracker.clear();
+//                    }
+
+
+//                    OverScrscrollBy(0, -dey);
+//                }
+
+//                if (getScrollY() + dey > getHeight()) {
+//                    scrollTo(0, getHeight());
+//                } else if (getScrollY() + dey < 0) {
+//                    scrollBy(0, 0);
+//                } else {
+//                scrollBy(0, -dey);
+//                }
                 break;
 
             case MotionEvent.ACTION_UP:
@@ -108,9 +124,9 @@ public class MyScrollview extends FrameLayout {
                 Log.e("myScrollView11111   ", "" + velocityY);
                 if (Math.abs(velocityY) > mViewCondig.getScaledMinimumFlingVelocity()) {
                     Log.e("myScrollView    ", "" + velocityY);
-                    mOverScroller.fling(getScrollX(), getScrollY(), 0, (int) -velocityY, 0, 0, 0, getChildAt(0).getHeight() - getHeight());
+                    mOverScroller.fling(getScrollX(), getScrollY(), 0, (int) -velocityY, 0, 0, 0, getHeight());
                     postInvalidateOnAnimation();
-                } else if (mOverScroller.springBack(getScrollX(), getScrollY(), 0, 0, 0, getChildAt(0).getHeight() - getHeight())) {
+                } else if (mOverScroller.springBack(getScrollX(), getScrollY(), 0, 0, 0, getHeight())) {
                     postInvalidateOnAnimation();
                 }
 
@@ -128,49 +144,21 @@ public class MyScrollview extends FrameLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        if (heightMode == MeasureSpec.UNSPECIFIED) {
-            return;
-        }
+        int h = getMeasuredHeight();
+//        if (getChildCount() > 0) {
+//            View view = getChildAt(0);
+//            final FrameLayout.LayoutParams layoutParams = (LayoutParams) view.getLayoutParams();
+//            h = h - view.getPaddingTop() - view.getPaddingBottom();
+//            int childMeasureH = MeasureSpec.makeMeasureSpec(h, MeasureSpec.EXACTLY);
+//
+//            int childMeasureW = getChildMeasureSpec(widthMeasureSpec, view.getPaddingLeft() + view.getPaddingRight(), layoutParams.width);
+//            view.measure(childMeasureW, childMeasureH);
+//
+//
+//        }
 
-
-        if (getChildCount() > 0) {
-            final View child = getChildAt(0);
-
-            int height = getMeasuredHeight();
-            int chileH = child.getMeasuredHeight();
-            Log.e("======    ", height + "   " + chileH);
-            //如果大小没有 父VIEW大 就设置父VIEW 的大小
-            if (chileH < height) {
-                final FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) child.getLayoutParams();
-
-                int childWidthMeasureSpec = getChildMeasureSpec(widthMeasureSpec,
-                        getPaddingLeft() + getPaddingRight(), lp.width);
-                height -= getPaddingTop();
-                height -= getPaddingBottom();
-                int childHeightMeasureSpec =
-                        MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
-
-                child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
-            }
-        }
 
     }
-
-
-    //设置子view的大小 要多大给多大
-    @Override
-    protected void measureChildWithMargins(View child, int parentWidthMeasureSpec, int widthUsed, int parentHeightMeasureSpec, int heightUsed) {
-        final MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
-        final int childWidthMeasureSpec = getChildMeasureSpec(parentWidthMeasureSpec,
-                getPaddingLeft() + getPaddingRight() + lp.leftMargin + lp.rightMargin
-                        + widthUsed, lp.width);
-        final int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(
-                lp.topMargin + lp.bottomMargin, MeasureSpec.UNSPECIFIED);
-
-        child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
-    }
-
 
     private void init(Context context) {
         this.mContext = context;
