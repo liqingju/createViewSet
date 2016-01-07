@@ -21,7 +21,6 @@
 
         <activity android:name=".CrilyViewActivity" />
         <activity android:name=".myScrollViewActivity"/>
-        <activity android:name=".ScrollViewActivity"/>
 
     </application>
 
