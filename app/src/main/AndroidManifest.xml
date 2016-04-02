@@ -20,8 +20,8 @@
         <activity android:name=".MainActivity" />
 
         <activity android:name=".CrilyViewActivity" />
-        <activity android:name=".myScrollViewActivity"/>
-<activity android:name=".ScrollViewActivity"/>
+        <activity android:name=".myScrollViewActivity" />
+        <activity android:name=".ScrollViewActivity" />
     </application>
 
 </manifest>

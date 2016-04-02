@@ -1,5 +1,6 @@
 package com.example.liqingju.meituancontext;
 
+import android.app.IntentService;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -28,6 +29,7 @@ public class MyScrollview extends FrameLayout {
 
     public MyScrollview(Context context) {
         super(context);
+        IntentService
         init(context);
     }
 
@@ -189,6 +191,11 @@ public class MyScrollview extends FrameLayout {
             scrollTo(mOverScroller.getCurrX(), mOverScroller.getCurrY());
             postInvalidate();
         }
+    }
+
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
 
 
     }
